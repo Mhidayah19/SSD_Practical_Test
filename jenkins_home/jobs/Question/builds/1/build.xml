@@ -1,0 +1,77 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-build plugin="workflow-job@1400.v7fd111b_ec82f">
+  <actions>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+        <entry>
+          <hudson.model.Cause_-UserIdCause/>
+          <int>1</int>
+        </entry>
+      </causeBag>
+    </hudson.model.CauseAction>
+  </actions>
+  <queueId>1</queueId>
+  <timestamp>1721718130306</timestamp>
+  <startTime>1721718130315</startTime>
+  <result>SUCCESS</result>
+  <duration>314</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <execution class="org.jenkinsci.plugins.workflow.cps.CpsFlowExecution">
+    <result>SUCCESS</result>
+    <script>pipeline {
+	agent any
+	stages {
+		stage(&apos;Checkout SCM&apos;) {
+			steps {
+				git &apos;https://github.com/Mhidayah19/SSD_Practical_Test.git&apos;
+			}
+		}
+
+		stage(&apos;OWASP DependencyCheck&apos;) {
+			steps {
+				dependencyCheck additionalArguments: &apos;--format HTML --format XML&apos;, odcInstallation: &apos;Default&apos;
+			}
+		}
+	}	
+	post {
+		success {
+			dependencyCheckPublisher pattern: &apos;dependency-check-report.xml&apos;
+		}
+	}
+}</script>
+    <loadedScripts class="linked-hash-map"/>
+    <durabilityHint>MAX_SURVIVABILITY</durabilityHint>
+    <timings class="map">
+      <entry>
+        <string>flowNode</string>
+        <long>9724209</long>
+      </entry>
+      <entry>
+        <string>classLoad</string>
+        <long>51294864</long>
+      </entry>
+      <entry>
+        <string>run</string>
+        <long>157163126</long>
+      </entry>
+      <entry>
+        <string>parse</string>
+        <long>52861334</long>
+      </entry>
+      <entry>
+        <string>saveProgram</string>
+        <long>50687666</long>
+      </entry>
+    </timings>
+    <internalCalls class="sorted-set"/>
+    <sandbox>true</sandbox>
+    <iota>3</iota>
+    <head>1:3</head>
+    <done>true</done>
+    <resumeBlocked>false</resumeBlocked>
+    <storageDir>workflow-completed</storageDir>
+  </execution>
+  <completed>true</completed>
+  <checkouts class="hudson.util.PersistedList"/>
+</flow-build>
